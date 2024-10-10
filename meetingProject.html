@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meeting Scheduler</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- INCLUDE CSS STYLESHEET -->
+  <link rel="stylesheet" href="meetingProject.css" />
+  </head>
+
+           <!-- HTML CODE START -->
+            <!-- ////////////// -->
+  <body>
+    <div class="content-wrap">
+      <div class="container clearfix">
+        <div class=" container-fluid">
+         <div id="table1_wrapper" class="Table_wrapper  dt-bootstrap4">
+          <div class="row justify-content-center">
+            <div class="col-sm-8 col-md-10 col-lg-12">
+              <h3>Meeting Schedules For October 2024</h3>
+
+              <div class="table-container  table-responsive">
+                <div class="date-picker-container">
+                  <input
+                    type="text"
+                    id="datePicker"
+                    class="date-picker-input"
+                    placeholder="Please select date"
+                  />
+                  <span class="material-icons calendar-icon">event</span>
+                </div>
+
+                <table class="table table-bordered table-hover" id="table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Title</th>
+
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="meetingBody">
+                    <!-- Time slots will inserted here through js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------PAGINATION------- -->
+          <!-- ///////////////////////////// -->
+          <!-- prettier-ignore -->
+          <div class="row" id="pagination">
+            <div class="col-sm-12 col-md-6 text-center text-md-left">
+              <div
+                class="table_info"
+                id="table1_info"
+                role="status"
+                aria-live="polite"
+              >
+                Showing 1 to 3
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 text-center  text-md-right mt-2">
+              <div
+                class="table_paginate paging_simple_numbers"
+                id="table1_paginate"
+              >
+                <ul class="pagination">
+                  <li
+                    class="paginate_button page-item previous disabled"
+                    id="table_previous"
+                  >
+                    <a
+                      href="#"
+                      aria-controls="table"
+                      data-dt-idx="0"
+                      tabindex="0"
+                      class="page-link"
+                      >Previous</a
+                    >
+                  </li>
+
+                  <li class="paginate_button page-item active">
+                    <a
+                      href="#"
+                      aria-controls="table"
+                      data-dt-idx="1"
+                      tabindex="0"
+                      class="page-link"
+                      >1</a
+                    >
+                  </li>
+                  <li class="paginate_button page-item">
+                    <a
+                      href="#"
+                      aria-controls="table"
+                      data-dt-idx="2"
+                      tabindex="0"
+                      class="page-link"
+                      >2</a
+                    >
+                  </li>
+                  <li class="paginate_button page-item">
+                    <a
+                      href="#"
+                      aria-controls="table"
+                      data-dt-idx="3"
+                      tabindex="0"
+                      class="page-link"
+                      >3</a
+                    >
+                  </li>
+
+                  <li class="paginate_button page-item next" id="table_next">
+                    <a
+                      href="#"
+                      aria-controls="table"
+                      data-dt-idx="7"
+                      tabindex="0"
+                      class="page-link"
+                      >Next</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- ////////////////////////////// -->
+          <!-- ----------PAGINATION END--------------- -->
+         </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- JavaScript Logic -->
+    <script>
+      //    DATE Picker
+      flatpickr("#datePicker", {
+        dateFormat: "F j, Y", // Example: October 8, 2024
+      });
+
+      const editForm = document.getElementById("editForm");
+      const tableContainer = document.querySelector(".table-container");
+      let currentRow;
+
+      // Function to create empty time slots from 8 AM to 4 PM
+      function createTimeSlots() {
+        let meetingBody = document.getElementById("meetingBody");
+        let rows = [];
+
+        for (let i = 8; i <= 16; i++) {
+          let hour = i <= 12 ? i : i - 12;
+          let ampm = i < 12 ? "AM" : "PM";
+          rows.push(`
+                <tr>
+                    <td>${hour} ${ampm} - ${hour + 1} ${ampm}</td>
+                    <td class="meetingDetails">
+                       
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="editMeeting(this)">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteMeeting(this)">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                
+                    </td>
+                </tr>
+            `);
+        }
+        meetingBody.innerHTML = rows.join("");
+      }
+
+
+
+// DATE Picker
+flatpickr("#datePicker", {
+  dateFormat: "Y-m-d", // Format to match the mock data keys
+  onChange: function(selectedDates) {
+    const selectedDate = selectedDates[0];
+    const dateStr = selectedDate.toISOString().split('T')[0]; // Convert to YYYY-MM-DD
+    updateMeetingTitles(dateStr);
+  }
+});
+
+
+
+      // Initialize the table with empty time slots on page load
+      document.addEventListener("DOMContentLoaded", createTimeSlots);
+    </script>
+  </body>
+</html>
