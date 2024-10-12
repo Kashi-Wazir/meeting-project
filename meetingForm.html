@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+   
+   
+  
+       <title>Meeting_Form</title>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Libre+Franklin:100,300,400,600,700,900');
+
+        body {
+            font-family: 'Libre Franklin', sans-serif;
+            background: #111922; /* $dark */
+        }
+        
+        h1 { 
+            font-weight: 900;
+            text-transform: uppercase; 
+            color: #ff8d00; 
+        }
+
+        @media (min-width: 1200px) {
+            h1 {
+                font-size: 60px;
+            }
+        }
+
+        /* Form styles */
+        .form-control {
+            border-radius: 0;
+            border: 0;
+            border-bottom: 1px solid #a1a2a3; 
+            color: #ff8d00; 
+            background: none;
+            outline: none;
+            box-shadow: none;
+            color: white;
+            padding-top: 43px; 
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-bottom: 1px solid #ff8d00; 
+            box-shadow: none;
+            outline: none;
+            background: none;
+            color: white;
+            
+        
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 35px;
+            
+         
+        }
+
+        .form-group > label {
+            text-transform: uppercase;
+            font-size: 10px;
+            color:#a1a2a3 ;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: 0 0;            
+            transition: all 0.4s ease-in-out;
+            
+        }
+
+        .form-group > input:placeholder-shown + label {
+            transform: scale(1.4) translateY(20px);
+    
+        }
+
+        .form-group > input:not(:placeholder-shown) + label,
+        .form-group > input:focus + label {
+            transform: scale(1) translateY(-5px);
+        }
+
+
+        /* Adjustments for Flatpickr */
+        .date-picker-input {
+            border-radius: 0;
+            border-bottom: 1px solid #a1a2a3; 
+            background: none;
+            outline: none;
+            box-shadow: none;
+            color: white;
+            padding-top: 43px; 
+            padding-bottom: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+          Customize the flatpickr calendar appearance
+    .flatpickr-calendar {
+        /* width: 30%;  */
+        border-radius: 8px;
+        border: 1px solid #e2e2e2;
+    }
+
+    .flatpickr-day.selected,
+    .flatpickr-day:hover {
+        background:#ff8d00; 
+        color: white;
+    }
+    .flatpickr-months {
+        border-bottom: 2px solid #ff8d00; 
+    }
+
+
+
+        /* Customize autocomplete background and border for Chrome */
+        input:-webkit-autofill, 
+        input:-webkit-autofill:focus {
+            background-color: transparent !important;
+            box-shadow: 0 0 0px 1000px #111922 inset !important;
+            border-bottom: 1px solid #ff8d00 !important; 
+            -webkit-text-fill-color: #fff !important;
+            color: white;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5  align-items-center mt-4">
+                <h1>Meeting Scheduling for Different Dates</h1>
+            </div>
+            <div class="col-md-6 offset-md-1">
+                <div class="form mt-4 mt-md-0">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" placeholder=" ">
+                        <label for="name">Title</label>
+                    </div>
+                    <div class="form-group date-picker-container">
+                        <input type="text" class="form-control date-picker-input" id="datePicker" placeholder=" " autocomplete="off">
+                        <label for="timePicker">Date</label>
+                       
+                    </div>
+                    <div class="form-group date-picker-container">
+                        <input type="text" class="form-control date-picker-input" id="startTimePicker" placeholder=" " autocomplete="off">
+                        <label for="timePicker">Start Time</label>
+                       
+                    </div>
+
+                    <div class="form-group date-picker-container">
+                        <input type="text" class="form-control date-picker-input" id="endTimePicker" placeholder=" " autocomplete="off">
+                        <label for="datePicker">End Time</label>
+                       
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-lg mt-5">Save</button>
+                        <button type="button" class="btn btn-danger btn-lg float-right mt-5">Delete</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+    
+
+           // Flatpickr Initialization
+      flatpickr("#datePicker", {
+        dateFormat: "F j, Y", // 
+         allowInput: true,
+      });
+
+            // Flatpickr Initialization for Time Picker only
+        flatpickr("#startTimePicker", {
+            enableTime: true,            // Enables time selection
+            noCalendar: true,            // Disables the calendar
+            dateFormat: "h:i K",         // Time format, e.g., 10:30 AM
+            time_24hr: false,            // Set to true for 24-hour format
+            allowInput: true             // Allows user input
+        });
+
+
+        flatpickr("#endTimePicker", {
+            enableTime: true,            // Enables time selection
+            noCalendar: true,            // Disables the calendar
+            dateFormat: "h:i K",         // Time format, e.g., 10:30 AM
+            time_24hr: false,            // Set to true for 24-hour format
+            allowInput: true             // Allows user input
+        });
+
+
+    </script>
+</body>
+</html>
