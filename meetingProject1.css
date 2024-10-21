@@ -5,6 +5,10 @@
   max-width: 100%;
   height: 100%;
 }
+h2{
+  font-weight: 700;
+  margin-top: 20px;
+}
 
 .table-container {
   height: 100vh;
@@ -12,6 +16,9 @@
   background-color: white;
   border-radius: 10px;
   overflow: hidden; /* Avoid scrollbar */
+}
+.btn-primary{
+  width: 60px;
 }
 
 th, td {
@@ -42,7 +49,7 @@ th:nth-child(3), td:nth-child(3){
 /* Date Picker */
 .date-picker-input {
   padding: 8px 36px 1px 10px;
-  width: 300px;
+  width: 340px;
   border: none;
   border-bottom: 2px solid #ccc;
   font-size: 16px;
@@ -65,7 +72,7 @@ th:nth-child(3), td:nth-child(3){
 }
 
 .flatpickr-calendar {
-  width: 350px;
+  width: 25%;
   border-radius: 8px;
   border: 1px solid #e2e2e2;
 }
@@ -80,18 +87,24 @@ th:nth-child(3), td:nth-child(3){
   border-bottom: 2px solid #5bc0de;
 }
 
-/* Media Queries */
+
+/* |||| Media Queries |||| */
+/* ------------------------------------------------------------ */
 @media (max-width: 576px) {
-  .btn {
+  .Slot-btn {
     width: 100%;
   }
   .btn-info{
     margin-bottom: 7px;
   }
+
 }
   @media (max-width: 710px) {
-    .btn {
+    .Slot-btn {
       width: 90%;
+    }
+    .btn-primary{
+      width: 45px;
     }
     .btn-info{
       margin-bottom: 9px;
@@ -104,16 +117,17 @@ th:nth-child(3), td:nth-child(3){
     font-size: 12px;
     padding: 3px 7px;
   }
-
-  .date-picker-input {
+  #datePicker { 
+   
     width: 50%;
   }
   .flatpickr-calendar{
-    width: 320px;;
+    width: 50%;
   }
+
 }
 @media (min-width: 992px) and (max-width: 1400px) {
-  .btn {
+  .Slot-btn {
     width: 60px;
 }
 }
