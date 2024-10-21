@@ -33,10 +33,11 @@
     <div id="table1_wrapper" class="dt-bootstrap4">
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <h3 class="text-center mb-4">Meeting Schedules For October 2024</h3>
+          <h2 class="text-center mb-4">Meeting Schedules For October 2024</h2>
 
           <div class="table-container table-responsive">
             <div class="date-picker-container  mb-3 text-right">
+              
               <button type="button" class="btn btn-primary btn-sm float-left ml-2 mt-1"><i class="fa-solid fa-plus"  ></i></button>
               <input
                 type="text"
@@ -122,12 +123,12 @@
           <tr>
               <td>${hour} ${ampm} - ${hour + 1} ${ampm}</td>
               <td class="meetingDetails"></td>
-              <td>
-                  <button class="btn btn-info float-left" onclick="editMeeting(this)">
+              <td> 
+                  <button class="btn btn-info float-left Slot-btn" onclick="editMeeting(this)">
                       <i class="fa fa-pen-to-square"></i>
                   </button>
                 
-                  <button class="btn btn-danger float-right" onclick="deleteMeeting(this)">
+                  <button class="btn btn-danger float-right Slot-btn" onclick="deleteMeeting(this)">
                       <i class="fa fa-trash"></i>
                   </button>
               </td>
@@ -136,6 +137,7 @@
         }
         meetingBody.innerHTML = rows.join("");
       }
+      
 
         
 
