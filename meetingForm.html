@@ -6,30 +6,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-   
-   
-  
-       <title>Meeting_Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet"/>
 
+    <title>Meeting Form</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css?family=Libre+Franklin:100,300,400,600,700,900');
 
         body {
             font-family: 'Libre Franklin', sans-serif;
-            background: white; /* $dark */
+            background: white;
         }
-        .form{
+
+        .form {
             background-color: white;
             border: 2px solid white;
             border-radius: 15px;
         }
-        
-        h1 { 
+
+        h1 {
             font-weight: 700;
-            text-transform: uppercase; 
+            text-transform: uppercase;
             color: black;
-            text-align: center; 
+            text-align: center;
         }
 
         @media (min-width: 1200px) {
@@ -38,115 +37,97 @@
             }
         }
 
-        /* Form styles */
         .form-control {
             border-radius: 0;
             border: 0;
-            border-bottom: 1px solid #a1a2a3; 
-            color: #5bc0de; 
+            border-bottom: 1px solid #a1a2a3;
+            color: black;
             background: none;
             outline: none;
             box-shadow: none;
-            color: #212529;
-            padding-top: 43px; 
+            padding-top: 43px;
             padding-bottom: 10px;
             font-size: 16px;
+            position: relative;
         }
 
         .form-control:focus {
-            border-bottom: 2px solid #5bc0de; 
+            border-bottom: 2px solid #5bc0de;
             box-shadow: none;
-            outline: none;
             background: none;
-            color: #212529;
-            
-        
         }
 
         .form-group {
             position: relative;
-            margin-bottom: 35px;  
-        }
-        .form-group > input{
-            border-bottom: 1px solid #ccc;
+            margin-bottom: 35px;
         }
 
         .form-group > label {
             text-transform: uppercase;
             font-size: 10px;
-            color:#a1a2a3 ;
+            color: #a1a2a3;
             position: absolute;
             left: 0;
             top: 0;
-            transform-origin: 0 0;            
+            transform-origin: 0 0;
             transition: all 0.4s ease-in-out;
-            
         }
 
         .form-group > input:placeholder-shown + label {
             transform: scale(1.4) translateY(20px);
-    
         }
 
         .form-group > input:not(:placeholder-shown) + label,
         .form-group > input:focus + label {
             transform: scale(1) translateY(-5px);
         }
-        #btn-actions{
+
+        /* Flex for start and end time inputs */
+        .time-inputs {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .time-inputs .form-group {
+            flex: 1;
+            max-width: 48%;
+        }
+
+        /* Icon positioning */
+        .icon-container {
+            position: absolute;
+            right: 6px;
+            top: 70%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: #777;
+        }
+
+        /* Adjustments for Flatpickr */
+        .flatpickr-calendar {
+            border-radius: 8px;
+            border: 2px solid #e2e2e2;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day:hover {
+            background: #5bc0de;
+            color: black;
+        }
+
+        .flatpickr-months {
+            border-bottom: 2px solid #5bc0de;
+        }
+
+        #btn-actions {
             justify-content: center;
             display: flex;
             gap: 20px;
-        
         }
-        .btn{
-           
+
+        .btn {
             width: 100px;
         }
-       
-
-
-        /* Adjustments for Flatpickr */
-        .date-picker-input {
-            border-radius: 0;
-            border-bottom: 1px solid #ccc; 
-            background: none;
-            outline: none;
-            box-shadow: none;
-            color: #212529;
-            padding-top: 43px; 
-            padding-bottom: 10px;
-            font-size: 16px;
-            width: 100%;
-        }
-          Customize the flatpickr calendar appearance
-    .flatpickr-calendar {
-        /* width: 30%;  */
-        border-radius: 8px;
-        border: 2px solid #e2e2e2;
-    }
-
-    .flatpickr-day.selected,
-    .flatpickr-day:hover {
-        background:#5bc0de; 
-        color: #212529;
-    }
-    .flatpickr-months {
-        border-bottom: 2px solid #5bc0de; 
-    }
-
-
-
-        /* Customize autocomplete background and border for Chrome */
-        input:-webkit-autofill, 
-        input:-webkit-autofill:focus {
-            background-color: transparent !important;
-            box-shadow: 0 0 0px 1000px white inset !important;
-            border-bottom: 1px solid #5bc0de !important; 
-            -webkit-text-fill-color: #fff !important;
-            color: #212529;
-        }
-
-
 
     </style>
 </head>
@@ -155,68 +136,65 @@
     <div class="container mt-5">
         <h1>Schedule Any Meeting</h1>
         <div class="row justify-content-center form-center">
-            
             <div class="col-md-8">
                 <div class="form mt-4">
-                    
                     <div class="form-group date-picker-container">
                         <input type="text" class="form-control date-picker-input" id="datePicker" placeholder=" " autocomplete="off">
-                        <label for="timePicker">Date</label>
+                        <label for="datePicker">Date</label>
+                        <span class="icon-container"><i class="fa-solid fa-calendar-day"></i></span>
                     </div>
+
                     <div class="form-group">
                         <input type="text" class="form-control" id="name" placeholder=" ">
                         <label for="name">Title</label>
                     </div>
-                    <div class="form-group date-picker-container">
-                        <input type="text" class="form-control date-picker-input" id="startTimePicker" placeholder=" " autocomplete="off">
-                        <label for="timePicker">Start Time</label>
-                       
+
+                    <!-- Flexbox for start and end time inputs -->
+                    <div class="time-inputs">
+                        <div class="form-group date-picker-container">
+                            <input type="text" class="form-control date-picker-input" id="startTimePicker" placeholder=" " autocomplete="off">
+                            <label for="startTimePicker">Start Time</label>
+                            <span class="icon-container"><i class="fa-solid fa-clock"></i></span>
+                        </div>
+                        <div class="form-group date-picker-container">
+                            <input type="text" class="form-control date-picker-input" id="endTimePicker" placeholder=" " autocomplete="off">
+                            <label for="endTimePicker">End Time</label>
+                            <span class="icon-container"><i class="fa-solid fa-clock"></i></span>
+                        </div>
                     </div>
 
-                    <div class="form-group date-picker-container">
-                        <input type="text" class="form-control date-picker-input" id="endTimePicker" placeholder=" " autocomplete="off">
-                        <label for="timePicker">End Time</label>
-                       
-                    </div>
-                    <div class="form-group " id="btn-actions">
-                        <button type="button" class="btn btn-primary  btn-lg mt-5">Save</button>
-                        <button type="button" class="btn btn-danger btn-lg  mt-5">Cancel</button>
+                    <div class="form-group" id="btn-actions">
+                        <button type="button" class="btn btn-primary btn-lg mt-5">Save</button>
+                        <button type="button" class="btn btn-danger btn-lg mt-5">Cancel</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-    
-
-           // Flatpickr Initialization
-      flatpickr("#datePicker", {
-        dateFormat: "F j, Y", // 
-         allowInput: true,
-      });
-
-            // Flatpickr Initialization for Time Picker only
-        flatpickr("#startTimePicker", {
-            enableTime: true,            
-            noCalendar: true,            
-            dateFormat: "h:i K",         
-            time_24hr: false,            
-            allowInput: true             
+        // Flatpickr Initialization
+        flatpickr("#datePicker", {
+            dateFormat: "F j, Y",
+            allowInput: true,
         });
 
+        flatpickr("#startTimePicker", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false,
+            allowInput: true
+        });
 
         flatpickr("#endTimePicker", {
-            enableTime: true,            
-            noCalendar: true,           
-            dateFormat: "h:i K",        
-            time_24hr: false,            
-            allowInput: true             
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false,
+            allowInput: true
         });
-
-
     </script>
 </body>
 </html>
